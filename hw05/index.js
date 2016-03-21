@@ -22,6 +22,6 @@ d3.select(".chart")
           if (unallocated.indexOf(d) === -1) {
             return "#3399ff";
           } else {
-            return "#333333";
+            return "#8585ad";
           }
     });
