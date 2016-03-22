@@ -12,42 +12,46 @@ var Rstates = d3.keys(Rdelegates);
 
 var x = d3.scale.linear()
     .domain([0, d3.max(numDelegates)])
-    .range([0, parseInt(d3.select(".chart").style("width").substring(0,4))])
+    .range([0, parseInt(d3.select(".chart").style("width").substring(0,4))-20])
 
 var drawDemo = function() {
     console.log("demo");
-    d3.select(".chart").selectAll("*").remove()
+    document.getElementById("title").innerHTML = "Democrat Delegates";
+    document.getElementById("total").innerHTML = "Total Delegates: 4,763";
+    document.getElementById("allo").innerHTML = "Number of Allocated Delegates: 2,258";
+    document.getElementById("allo").style.color = "#3399ff";
+    document.getElementById("unallo").innerHTML = "Number of Unallocated Delegates: 2,505";
+    //d3.select(".chart").selectAll("*").remove()
     d3.select(".chart")
 	.selectAll("div")
 	.data(states)
-	.enter().append("div")
-	.style("background", "white")
-	.style("width", "0px")
 	.transition()
 	.duration(2000)
 	.style("width", function(d) {
 	    //console.log(delegates[d]);
-            return x(delegates[d]) + "px";})
+	    return x(delegates[d]) + "px";})
 	.text(function(d) { 
 	    return d + ": " +  delegates[d]; })
 	.style("background-color", function(d) {
-            if (unallocated.indexOf(d) === -1) {
+	    if (unallocated.indexOf(d) === -1) {
 		return "#3399ff";
-            } else {
+	    } else {
 		return "#8585ad";
-            }
+	    }
 	});
 };
 
 var drawRepub = function() {
     console.log("repub");
-    d3.select(".chart").selectAll("*").remove()
+    document.getElementById("title").innerHTML = "Republican Delegates";
+    document.getElementById("total").innerHTML = "Total Delegates: 2,291";
+    document.getElementById("allo").innerHTML = "Number of Allocated Delegates: 1,247";
+    document.getElementById("allo").style.color = "#ff3333";
+    document.getElementById("unallo").innerHTML = "Number of Unallocated Delegates: 1,044";
+    //d3.select(".chart").selectAll("*").remove()
     d3.select(".chart")
 	.selectAll("div")
 	.data(Rstates)
-	.enter().append("div")
-	.style("background", "white")
-	.style("width", "0px")
 	.transition()
 	.duration(2000)
 	.style("width", function(d) {
@@ -64,7 +68,30 @@ var drawRepub = function() {
 	});
 };
 
-drawDemo();
+var drawInit = function() {
+	d3.select(".chart")
+	    .selectAll("div")
+	    .data(states)
+	    .enter().append("div")
+	    .style("background", "white")
+	    .style("width", "0px")
+	    .transition()
+	    .duration(2000)
+	    .style("width", function(d) {
+		//console.log(delegates[d]);
+		return x(delegates[d]) + "px";})
+	    .text(function(d) { 
+		return d + ": " +  delegates[d]; })
+	    .style("background-color", function(d) {
+		if (unallocated.indexOf(d) === -1) {
+		    return "#3399ff";
+		} else {
+		    return "#8585ad";
+		}
+	    });
+};		 	
+
+drawInit();
 
 document.getElementById("de").addEventListener("click", drawDemo);
 document.getElementById("re").addEventListener("click", drawRepub);
