@@ -7,23 +7,64 @@ var unallocated = ["Arizona", "Idaho", "Utah", "Alaska", "Hawaii", "Washington",
 var numDelegates = d3.values(delegates);
 var states = d3.keys(delegates);
 
+var numRDelegates = d3.values(Rdelegates);
+var Rstates = d3.keys(Rdelegates);
+
 var x = d3.scale.linear()
     .domain([0, d3.max(numDelegates)])
     .range([0, parseInt(d3.select(".chart").style("width").substring(0,4))])
 
-d3.select(".chart")
-  .selectAll("div")
-    .data(states)
-  .enter().append("div")
-    .style("width", function(d) {
-	console.log(delegates[d]);
-        return x(delegates[d]) + "px";})
-    .text(function(d) { 
-	return d + ": " +  delegates[d]; })
-    .style("background-color", function(d) {
-          if (unallocated.indexOf(d) === -1) {
-            return "#3399ff";
-          } else {
-            return "#8585ad";
-          }
-    });
+var drawDemo = function() {
+    console.log("demo");
+    d3.select(".chart").selectAll("*").remove()
+    d3.select(".chart")
+	.selectAll("div")
+	.data(states)
+	.enter().append("div")
+	.style("background", "white")
+	.style("width", "0px")
+	.transition()
+	.duration(2000)
+	.style("width", function(d) {
+	    //console.log(delegates[d]);
+            return x(delegates[d]) + "px";})
+	.text(function(d) { 
+	    return d + ": " +  delegates[d]; })
+	.style("background-color", function(d) {
+            if (unallocated.indexOf(d) === -1) {
+		return "#3399ff";
+            } else {
+		return "#8585ad";
+            }
+	});
+};
+
+var drawRepub = function() {
+    console.log("repub");
+    d3.select(".chart").selectAll("*").remove()
+    d3.select(".chart")
+	.selectAll("div")
+	.data(Rstates)
+	.enter().append("div")
+	.style("background", "white")
+	.style("width", "0px")
+	.transition()
+	.duration(2000)
+	.style("width", function(d) {
+	    //console.log(Rdelegates[d]);
+            return x(Rdelegates[d]) + "px";})
+	.text(function(d) { 
+	    return d + ": " +  Rdelegates[d]; })
+	.style("background-color", function(d) {
+            if (unallocated.indexOf(d) === -1) {
+		return "#ff3333";
+            } else {
+		return "#8585ad";
+            }
+	});
+};
+
+drawDemo();
+
+document.getElementById("de").addEventListener("click", drawDemo);
+document.getElementById("re").addEventListener("click", drawRepub);
