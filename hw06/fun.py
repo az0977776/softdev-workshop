@@ -29,8 +29,8 @@ def passRate(p):
     low = 'abcdefghijklmnopqrstuvwxyz'
     char = '.?!&#,;:-_*'
 
-    rating = 0
-
+    rating = 0 
+    
     if 1 in [1 for x in p if x in num]:
         rating += 2.5
     if 1 in [1 for x in p if x in up]:
