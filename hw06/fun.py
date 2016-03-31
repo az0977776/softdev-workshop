@@ -20,8 +20,8 @@ def passTest(p):
     if 1 in [1 for x in p if x in num]:
         if 1 in [1 for x in p if x in up]:
             if 1 in [1 for x in p if x in low]:
-                return True
-    return False
+                return p + ": pass"
+    return p + ": fail"
 
 def passRate(p):
     num = '0123456789'
@@ -39,7 +39,9 @@ def passRate(p):
         rating += 2.5
     if 1 in [1 for x in p if x in char]:
         rating += 2.5
-    return rating
+    if len(p) < 10:
+        rating *= len(p)/10.0
+    return p + ': ' + str(rating)
 
 print passTest('apple123')
 print passTest('hunter2')
@@ -48,3 +50,4 @@ print passTest('Password1')
 print passRate('asdbnfjkbhHJVAKSYdv12341234*&(^$')
 print passRate('hi')
 print passRate('jkdbakljsbgdfkj1234123o88UJJkJKsdjkrfvbsjtvb')
+print passRate('hunter2')
