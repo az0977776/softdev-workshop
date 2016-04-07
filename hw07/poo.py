@@ -31,9 +31,10 @@ def repeat(string):
         return output
     return j
 
-r1=repeat('cool')
+r1=repeat('hi')
 r2=repeat('goodbye')
 
 print r1(2)
 print r2(2)
 print repeat('cool')(3)
+
